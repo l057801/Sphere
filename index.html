@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			#title {
+				height: 30px;
+				display: flex;
+				align-items: center;
+				background: yellow;
+			}
+			#page {
+				display: flex;
+				height: calc(100vh - 30px);
+			}
+
+			#controls {
+				background-color: blue;
+				border-color: red;
+				width: 300px
+			}
+			#canvas {
+				background-color: coral;
+				flex: 1 0 auto;
+				border: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='title'>Title</div>
+		<div id='page'>
+			<div id="controls">controls
+				Latitude: <input type='range' min='3' max ='100' value='50' class='slider' id='latitude'>
+			</div>
+			<div id="canvas"></div>
+		</div>
+		<script src="three.js"></script>
+		<script src="test.js"></script>
+
+	</body>
+</html>
