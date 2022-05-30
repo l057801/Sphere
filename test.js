@@ -1,19 +1,28 @@
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+function init(){
+	// renderer
+	const container = document.getElementById('canvas')
+	const renderer = new THREE.WebGLRenderer();
+	renderer.setSize( container.clientHeight, container.clientWidth);
+	container.appendChild( renderer.domElement )
+	
+	// scene
+	const scene = new THREE.Scene();
 
-const container = document.getElementById('canvas')
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( container.clientHeight, container.clientWidth);
-container.appendChild( renderer.domElement )
+	// camera
+	const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera.position.set( 20, 20, 20);
+	camera.lookAt( 0, 0, 0 );
+	
+	// cube geometry
+	const geometry = new THREE.BoxGeometry();
+	const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+	const cube = new THREE.Mesh( geometry, material );
+	scene.add( cube );
 
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+	// animate
+	animate(cube)
+}
 
-//camera.position.z = 5;
-camera.position.set( 20, 20, 20);
-camera.lookAt( 0, 0, 0 );
 
 function animate() {
 	let rot = document.getElementById('rotation').value / 1000
@@ -28,7 +37,6 @@ function animate() {
 	}
 };
 
-animate();
 
 function sphere() {
 
@@ -40,12 +48,13 @@ function sphere() {
 
 	deltaTheta = Math.PI / latPts;
 	deltaPsi = 2 * Math.PI / longPts;
-
-	for (let i = 3; i < latPts + 1; i++){
+	console.log('No: ' + latPts + ' - deltaTheta: ' + deltaTheta)
+	console.log('No: ' + longPts + ' - deltaPsi: ' + deltaPsi)
+	for (let i = 0; i < latPts + 1; i++){
 		z = Math.cos(i * deltaTheta) * R;
 		Rlevel = Math.sin(i * deltaTheta) * R ; 
 		let row = [];
-		for (let v = 3; v < longPts + 1; v++){
+		for (let v = 0; v < longPts + 1; v++){
 			x = Math.cos(v * deltaPsi) * Rlevel;
 			y = Math.sin(v * deltaPsi) * Rlevel;
 			row.push(new THREE.Vector3(x,y,z));
@@ -64,3 +73,4 @@ function sphere() {
 	return lines;
 }
 
+init()
