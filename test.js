@@ -14,13 +14,16 @@ function init(){
 	camera.lookAt( 0, 0, 0 );
 	
 	// cube geometry
-	const geometry = new THREE.BoxGeometry();
+	const cube_geometry = new THREE.BoxGeometry();
 	const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	const cube = new THREE.Mesh( geometry, material );
+	const cube = new THREE.Mesh( cube_geometry, material );
 	scene.add( cube );
+	
+	// spehere geometry
+	//let sphere_geometry = new THREE.BufferGeometry();
 
 	// animate
-	animate(cube)
+	animate()
 }
 
 
@@ -29,12 +32,14 @@ function animate() {
 	requestAnimationFrame( animate );
 	cube.rotation.x += rot;
 	cube.rotation.y += rot;
+	
+	if (lines){
+		lines.forEach(line => {line.dispose()});
+	}
+
 	lines = sphere();
 	renderer.render( scene, camera );
 
-	for (i = 0; i < lines.length; i++) {
-		scene.remove(lines[i]);
-	}
 };
 
 
